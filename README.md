@@ -1,5 +1,12 @@
 # DonnerWeb
-![alt text](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/Chart1.png)
+![alt Chart1](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/Chart1.png)
+![alt Chart2](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/Chart2.png)
+![alt donorForm](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/donorForm.png)
+![alt donorInfoWithDonation](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/donorInfoWithDonation.png)
+
+![alt donorList](https://github.com/mehul7074panchal/DoonerAppDemo/blob/master/screenshots/donorList.png)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.17.
 
 ## Development server
