@@ -1,0 +1,226 @@
+<div class="mat-elevation-z8">
+  <mat-card-content>
+    <mat-toolbar class="home-table-css" style="color: #FFFFFF; background: #EA3323;">
+      <mat-toolbar-row>
+        <span>Search Donor</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+     
+         <!--    <div class="col-sm-4">
+              <mat-form-field class="home-full-width">
+                <input name="SrNo" formControlName="SrNo" matInput placeholder="SrNo" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="home-full-width">
+                <input type="number" name="ComputerNo" formControlName="ComputerNo" matInput placeholder="Computer No" value="">
+              </mat-form-field> -->
+    <mat-card>
+      <form class="home-form" [formGroup]="filterDialogSearch" (ngSubmit)="onSubmit()">
+       <!--  <input type="hidden" formControlName="FlageAmount" />
+   -->
+        <mat-card-content>
+          <div class="container">
+            <div class="row" style="margin-top: 10px;">
+              <div class="col-sm-12">
+                <mat-form-field class="home-full-width">
+                  <input oninput="this.value = this.value.toUpperCase()" name="Company" formControlName="Company" matInput placeholder="Company *" value="">
+                  </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="Name" oninput="this.value = this.value.toUpperCase()" formControlName="Name" matInput placeholder="Name" value="">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="MobileNo" formControlName="MobileNo" matInput placeholder="Mobile No" value="">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="Reference" oninput="this.value = this.value.toUpperCase()" formControlName="Reference" matInput placeholder="Reference Name" value="">
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="SrNo" oninput="this.value = this.value.toUpperCase()" formControlName="SrNo" matInput placeholder="SrNo" value="">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input type="number" name="ComputerNo" formControlName="ComputerNo" matInput placeholder="Computer No"
+                    value="">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="Pincode" formControlName="Pincode" matInput placeholder="Pincode" value="">
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input formControlName="CityVillage" oninput="this.value = this.value.toUpperCase()" placeholder="City/Village" matInput [matAutocomplete]="autoCity">
+                  <mat-autocomplete #autoCity="matAutocomplete">
+                    <mat-option *ngFor="let city of filteredOptionsCity | async" [value]="city">
+                      {{city}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input formControlName="State" oninput="this.value = this.value.toUpperCase()" placeholder="State" aria-label="State" matInput [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let state of filteredOptionsState | async" [value]="state">
+                      {{state}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input oninput="this.value = this.value.toUpperCase()" formControlName="Country" aria-label="Country" placeholder="Country" matInput
+                    [matAutocomplete]="autoCountry">
+                  <mat-autocomplete #autoCountry="matAutocomplete">
+                    <mat-option *ngFor="let country of filteredOptionsCountry | async" [value]="country">
+                      {{country}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                  <input name="Amount" formControlName="Amount" matInput placeholder="Amount" value="">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                    <input  matInput [matDatepicker]="fromPicker" name="FromDate"
+                    formControlName="FromDate" placeholder="From Date">
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-4">
+                <mat-form-field class="home-full-width">
+                    <input matInput [matDatepicker]="toPicker" name="ToDate"
+                    formControlName="ToDate" placeholder="To Date">
+                <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                <mat-datepicker #toPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-card-actions>
+              <div class="row" style="width:50%;">
+  
+                <div class="col-md-4">
+                  <button type="submit" mat-flat-button class="home-dialog-btn-search-css">Search</button>
+                </div>
+                <div class="col-md-4">
+                  <mat-spinner *ngIf="IsWait" color="warn" diameter="50"></mat-spinner>
+                </div>
+                <div class="col-md-4">
+                  <mat-checkbox formControlName="IsArchive" class="mat-checkbox-checked">Is Archive</mat-checkbox>
+                </div>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card-content>
+  
+      </form>
+    </mat-card>
+  </mat-card-content>
+</div>
+
+<div class="mat-elevation-z8">
+  <mat-card-content>
+    <mat-toolbar class="home-dialog-table-css" style="color: #FFFFFF; background: #EA3323;">
+      <mat-toolbar-row>
+          <div style="display: inline-block; width: 100%;">
+            <span style="float: left;">Search Results</span>
+            <span style="float: right; margin-right: 10px;">
+                <input oninput="this.value = this.value.toUpperCase()" matInput (keyup)="applyFilter($event.target.value)" class="rcorners2 inputText" type="text" style="font-size: 16px;  background: white; color: black;" placeholder="Search">
+            </span>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <table mat-table [dataSource]="dataSourceFilter" matSort>
+
+
+
+      <!-- ComputerNo Column -->
+      <ng-container matColumnDef="ComputerNo" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> ComputerNo. </th>
+        <td mat-cell *matCellDef="let element"> {{element.ComputerNo}} </td>
+      </ng-container>
+
+      <!-- Srno Column -->
+      <ng-container matColumnDef="SrNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> SrNo </th>
+        <td mat-cell *matCellDef="let element"> {{element.SrNo}} </td>
+      </ng-container>
+
+       <!-- Company Column -->
+       <ng-container matColumnDef="Company">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> Company </th>
+        <td mat-cell *matCellDef="let element"> {{element.Company}} </td>
+      </ng-container>
+      
+      <!-- Name Column -->
+      <ng-container matColumnDef="FullName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> FullName </th>
+        <td mat-cell *matCellDef="let element"> {{element.FullName}} </td>
+      </ng-container>
+
+      <!-- Address Column -->
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-address home-dialog-table-th">
+          Address </th>
+        <td mat-cell *matCellDef="let element"  [innerHTML]="element.Address">  </td>
+      </ng-container>
+
+
+
+      <!-- City Column -->
+      <ng-container matColumnDef="City">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.City}} </td>
+      </ng-container>
+
+
+      <!-- Moblie Column -->
+      <ng-container matColumnDef="MobileNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-dialog-table-th"> Mobile </th>
+        <td mat-cell *matCellDef="let element"> {{element.MobileNo}} </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="home-table-th"> Action </th>
+        <td mat-cell *matCellDef="let element">  <button mat-stroked-button [routerLink]="['/home',element.ComputerNo]" [queryParams]="{isarchive: element.IsArchive}" color="primary" (click)="viewDonner()" >View</button> 
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsFilter; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsFilter;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</div>
+
+<!-- [routerLink]="['/home',element.ComputerNo]" -->
+<!-- (click)="viewDonner({element.ComputerNo})" -->

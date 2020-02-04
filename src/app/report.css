@@ -1,0 +1,86 @@
+.report-full-width {
+    width: 95%;
+  }
+
+  .report-main-card{
+    background-color: ivory;
+  }
+
+  .report-table-css{
+    margin-top: 20px;
+  }
+  
+  .report-table-address{
+    width:200px;
+  }
+
+  .report-table-th{
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    background: cornsilk;
+    text-align: center;
+  }
+
+  .report-table-td{
+    text-align: center;
+    
+  }
+
+  .report-btn-search-css{
+    background:#EA3323;
+    color: white;
+    height: 40px;
+    margin-left: 10px;
+  }
+
+  .report-delete-icon-image-1 {
+    /* float: left;
+    margin-top: 2px;
+    display: block;
+    margin-left: 5px; */
+    margin-right: 2px;
+    max-width: 28px;
+    max-height: 28px;
+    width: auto;
+    height: auto;
+}
+
+.report-delete-icon-image-2 {
+  /* float: left;
+  margin-top: 2px;
+  display: block;*/
+  margin-left: 10px;
+  margin-bottom: 30px;
+  max-width: 28px;
+  max-height: 28px;
+  width: auto;
+  height: auto;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #EA3323 !important;
+}
+
+.report-btn-edit{
+  background: #0D4F8B;
+  color: cornsilk;
+}
+
+.rcorners2 {
+  border-radius: 25px;
+  border: 0.5px solid black;
+  padding: 5px; 
+  width: 100%;
+  height: 100%;  
+}
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+.mat-spinner::ng-deep circle {
+  stroke: #ffffff;
+}

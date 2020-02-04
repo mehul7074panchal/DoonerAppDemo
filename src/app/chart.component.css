@@ -1,0 +1,7 @@
+.chart-table-css {
+    margin-top: 20px;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color:rgba(66, 134, 244,.26);
+  }

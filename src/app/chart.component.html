@@ -1,0 +1,106 @@
+<div class="mat-elevation-z8" style="margin-top: 10px;">
+  <mat-toolbar class="chart-table-css" style="color: #FFFFFF; background: #EA3323;">
+    <mat-toolbar-row>
+      <span>Statistics</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+ 
+    <mat-card-content>
+      <div class="container">
+       
+        <div class="row" style="background: cornsilk;">
+          <div style="padding: 10px;">
+             <mat-radio-group aria-label="Select an option"  [(ngModel)]="mode" (change)='onModeChange()'>
+              <mat-radio-button color="warn"  style="padding: 10px;" *ngFor="let mode of modes" [value]="mode.value">
+                {{mode.Mode}}
+              </mat-radio-button>
+        </mat-radio-group>
+           <!--  <button mat-flat-button color="primary" (click)="yearlyDonation()" style="margin-right: 20px;">Overall
+              Donation</button>
+            <button mat-flat-button color="primary" (click)="sectionDonation()" style="margin-right: 20px;">Sectionwise
+              Donation</button>
+            <button mat-flat-button color="primary" (click)="sectionCityDonation()"
+              style="margin-right: 20px;">Sectionwise Cities Donation</button>
+            <button mat-flat-button color="primary" (click)="topDonners()" style="margin-right: 20px;">Top
+              Donners</button> -->
+          </div>
+        </div>
+        <div class="row"
+          style="padding-top: 10px; background:#EEEEEE; display: inline-block; width: 103%; padding-right: 10px;">
+          <div class="col-sm-3" style="float: left;">
+            <mat-form-field class="home-full-width">
+              <!-- <input name="PaymentMode" formControlName="PaymentMode" matInput
+              placeholder="Payment Mode *" value=""> -->
+              <mat-label>Select Type Of Chart</mat-label>
+              <mat-select [(value)]="chartType" (selectionChange)='onTypeChange()'>
+                <mat-option *ngFor="let loc of chartTypes" [value]="loc.value">
+                  {{loc.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3" style="float: left;" *ngIf="IsYear">
+            <mat-form-field>
+              <input name="year"  [formControl]="yearfc" [(ngModel)]='year' matInput placeholder="Year" value="">
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-3" style="float: left;" *ngIf="IsQuarter">
+            <mat-form-field class="home-full-width">
+              <!-- <input name="PaymentMode" formControlName="PaymentMode" matInput
+              placeholder="Payment Mode *" value=""> -->
+              <mat-label>Select Quarter</mat-label>
+              <mat-select [formControl]="quarterfc" [(value)]="quarter">
+                <mat-option *ngFor="let loc of quarters" [value]="loc.value">
+                  {{loc.Quarter}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-sm-3" style="float: left;" *ngIf="IsMonth">
+            <mat-form-field class="home-full-width">
+              <!-- <input name="PaymentMode" formControlName="PaymentMode" matInput
+              placeholder="Payment Mode *" value=""> -->
+              <mat-label>Select Month</mat-label>
+              <mat-select [(value)]="month">
+                <mat-option *ngFor="let loc of months" [value]="loc.value">
+                  {{loc.Month}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+<!-- 
+          <div class="col-sm-3" style="float: left;" *ngIf="IsCity">
+            <form>
+            <mat-form-field class="home-full-width">
+              <input [formControl]="city" placeholder="City" [(ngModel)]='city' matInput [matAutocomplete]="autoCity">
+              <mat-autocomplete #autoCity="matAutocomplete">
+                <mat-option *ngFor="let city of filteredOptionsCity | async" [value]="city">
+                  {{city}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+          </div> -->
+
+          
+          <div style="margin-top: 5px; float: right;">
+            <button mat-flat-button color="primary" (click)="getData()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+ 
+
+  <div class="chart-container" style="padding-top: 20px;" >
+    <canvas runat="server" id="canvas"></canvas>
+  </div>
+</div>
+
+<!-- <div class="mat-elevation-z8" style="margin-top: 30px;">
+  <div class="chart-container">
+    <canvas id="canvas2"></canvas>
+  </div>
+</div> -->

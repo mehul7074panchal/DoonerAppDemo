@@ -1,0 +1,267 @@
+<div class="mat-elevation-z8">
+  <mat-toolbar class="report-table-css" style="color: #FFFFFF; background: #EA3323;">
+    <mat-toolbar-row>
+      <span>Search Donor</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-card>
+    <form class="report-form" [formGroup]="reportSearch" (ngSubmit)="onSubmit()">
+     
+
+      <mat-card-content>
+        <div class="container">
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-12">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" name="Company" formControlName="Company" matInput placeholder="Company *" value="">
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" name="Name" formControlName="Name" matInput placeholder="Name" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input name="MobileNo" formControlName="MobileNo" matInput placeholder="Mobile No" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" name="Reference" formControlName="Reference" matInput placeholder="Reference Name" value="">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" name="SrNo" formControlName="SrNo" matInput placeholder="SrNo" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input type="number" name="ComputerNo" formControlName="ComputerNo" matInput placeholder="Computer No"
+                  value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input name="Pincode" formControlName="Pincode" matInput placeholder="Pincode" value="">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" formControlName="CityVillage" placeholder="City/Village" matInput [matAutocomplete]="autoCity">
+                <mat-autocomplete #autoCity="matAutocomplete">
+                  <mat-option *ngFor="let city of filteredOptionsCity | async" [value]="city">
+                    {{city}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" formControlName="State" placeholder="State" aria-label="State" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let state of filteredOptionsState | async" [value]="state">
+                    {{state}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input oninput="this.value = this.value.toUpperCase()" formControlName="Country" aria-label="Country" placeholder="Country" matInput
+                  [matAutocomplete]="autoCountry">
+                <mat-autocomplete #autoCountry="matAutocomplete">
+                  <mat-option *ngFor="let country of filteredOptionsCountry | async" [value]="country">
+                    {{country}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                <input name="Amount" formControlName="Amount" matInput placeholder="Amount" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                  <input matInput [matDatepicker]="fromPicker" name="FromDate"
+                  formControlName="FromDate" placeholder="From Date">
+              <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field class="report-full-width">
+                  <input matInput [matDatepicker]="toPicker" name="ToDate"
+                  formControlName="ToDate" placeholder="To Date">
+              <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+              <mat-datepicker #toPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-card-actions>
+            <div class="row" style="width:50%;">
+
+              <div class="col-md-4">
+                <button type="submit" mat-flat-button class="report-btn-search-css">Search</button>
+              </div>
+              <div class="col-md-4">
+                <mat-spinner *ngIf="IsWait" color="warn" diameter="50"></mat-spinner>
+              </div>
+              <div class="col-md-4">
+                <mat-checkbox formControlName="IsArchive" class="mat-checkbox-checked">Is Archive</mat-checkbox>
+              </div>
+            </div>
+          </mat-card-actions>
+        </div>
+      </mat-card-content>
+
+    </form>
+  </mat-card>
+</div>
+
+<div class="mat-elevation-z8 report-table-css">
+  <mat-card-content>
+
+    <mat-toolbar style="color: #FFFFFF; background: #EA3323;">
+      <mat-toolbar-row>
+        <div style="display: inline-block; width: 100%;">
+          <span style="float: left;margin: 10px">Search Results</span>
+          <button mat-flat-button color="primary" (click)="downloadReport(true)" style="float: right;margin: 10px">Download
+              Envelope</button>
+              <button mat-flat-button color="primary" (click)="downloadReport(false)" style="float: right;margin: 10px;">Download
+                A4</button>
+
+                <button mat-flat-button color="primary" (click)="downloadExcel()" style="float: right;margin: 10px;">Download
+                  Excel</button>
+            <mat-spinner style="float: left; margin-left: 50px;" *ngIf="IsWait2" diameter="30"></mat-spinner>
+          <span style="float: right; margin-right: 10px;margin-top: 10px;">
+            <input matInput oninput="this.value = this.value.toUpperCase()" (keyup)="applyFilter($event.target.value)" class="rcorners2 inputText" type="text"
+              style="font-size: 16px;  background: white; color: black;" placeholder="Search">
+          </span>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="report-table-th">
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(element.ComputerNo) : null"
+            [checked]="selection.isSelected(element.ComputerNo)" [aria-label]="checkboxLabel(element.ComputerNo)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- ComputerNo Column -->
+      <ng-container matColumnDef="ComputerNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> ComputerNo. </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.ComputerNo}} </td>
+      </ng-container>
+
+      <!-- Srno Column -->
+      <ng-container matColumnDef="SrNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> Code </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.SrNo}} </td>
+      </ng-container>
+
+       <!-- Srno Column -->
+       <ng-container matColumnDef="Company">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> Company </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.Company}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="FullName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> FullName </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.FullName}} </td>
+      </ng-container>
+
+      <!-- Address Column -->
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-address report-table-th"> Address
+        </th>
+        <td mat-cell *matCellDef="let element" [innerHTML]="element.Address">  </td>
+      </ng-container>
+
+      <!-- City Column -->
+      <!-- <ng-container matColumnDef="City">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> City </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.City}} </td>
+      </ng-container> -->
+
+      <!-- State Column -->
+      <!-- <ng-container matColumnDef="State">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> State </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.State}} </td>
+      </ng-container> -->
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="Country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> Country </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.Country}} </td>
+      </ng-container>
+
+      <!-- Moblie Column -->
+      <ng-container matColumnDef="MobileNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> Mobile </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.MobileNo}} </td>
+      </ng-container>
+
+       <!-- Moblie Column -->
+       <ng-container matColumnDef="PanCard">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> PanCard </th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.PanCard}} </td>
+      </ng-container>
+
+      <!-- TotalDonation Column -->
+      <ng-container matColumnDef="TotalDonationAmount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> TotalDonation</th>
+        <td mat-cell *matCellDef="let element" class="report-table-td"> {{element.TotalDonationAmount}} </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="report-table-th"> Action </th>
+          <td mat-cell *matCellDef="let element" class="report-table-td"> 
+            <!-- <button mat-stroked-button (click)="viewDonner(element)" color="primary">View</button> 
+            <button mat-stroked-button  (click)="deleteReport(element)" color="warn">Delete</button>  -->
+
+          <img mat-card-image class="report-delete-icon-image-1" [routerLink]="['/home',element.ComputerNo]"
+            [queryParams]="{isarchive: element.IsArchive}" src="./assets/icon_info.png" alt="icon_of_info"
+            >
+          <img mat-card-image class="report-delete-icon-image-2" src="./assets/icon_delete.png" alt="icon_of_delete"
+            (click)="deleteReport(element)">
+        </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>
+
+  </mat-card-content>
+</div>
+
